@@ -1,5 +1,7 @@
 <template>
-  <login-view />
+  <v-app>
+    <login-view />
+  </v-app>
 </template>
 
 <script>
