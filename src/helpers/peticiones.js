@@ -5,7 +5,7 @@ const auth = (usuario, contrasena) => {
     method: "POST",
     body: JSON.stringify({
       usuario: usuario,
-      contrasena: contrasena,
+      password: contrasena,
     }),
   });
 };

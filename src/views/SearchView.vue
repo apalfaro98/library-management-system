@@ -1,22 +1,26 @@
 <template>
-  <div class="fondo d-flex flex-column align-center">
-    <v-text-field
-      class="input mt-16"
-      v-model="search"
-      solo
-      rounded
-      append-icon="mdi-magnify"
-      height="1.5rem"
-      @click:append="buscarLibro()"
-      @keypress.enter="buscarLibro()"
-    ></v-text-field>
-    <v-data-table
-      v-if="mostrarTabla"
-      :headers="headers"
-      :items="desserts"
-      :items-per-page="5"
-      class="elevation-1 tabla"
-    ></v-data-table>
+  <div class="fondo">
+    <div class="d-flex justify-center">
+      <v-text-field
+        class="input mt-16 flex-grow-0"
+        v-model="search"
+        solo
+        rounded
+        append-icon="mdi-magnify"
+        height="1.5rem"
+        @click:append="buscarLibro()"
+        @keypress.enter="buscarLibro()"
+      ></v-text-field>
+    </div>
+    <div class="d-flex justify-center mt-7">
+      <v-data-table
+        v-if="mostrarTabla"
+        :headers="headers"
+        :items="desserts"
+        :items-per-page="5"
+        class="elevation-1 tabla"
+      ></v-data-table>
+    </div>
   </div>
 </template>
 
