@@ -114,7 +114,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style>
 .fondo {
   background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
     url(@/assets/books-background.png);
