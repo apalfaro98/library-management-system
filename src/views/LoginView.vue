@@ -97,17 +97,20 @@ export default {
           "La contraseña debe tener un mínimo de 8 caracteres";
       } else {
         this.error = false;
-        peticiones.auth(this.user, this.password).then((resp) => {
-          if (resp.ok) {
+        peticiones
+          .auth(this.user, this.password)
+          .then((resp) => {
             console.log(resp);
-            sessionStorage.setItem("logueado", "ok");
-            this.$router.push("/home");
-          } else {
-            this.error = true;
-            this.errorMessage =
-              "Usuario o contraseña incorrectos, vuelva a intentarlo";
-          }
-        });
+            if (resp.ok) {
+              sessionStorage.setItem("logueado", "ok");
+              this.$router.push("/home");
+            } else {
+              this.error = true;
+              this.errorMessage =
+                "Usuario o contraseña incorrectos, vuelva a intentarlo";
+            }
+          })
+          .catch(console.log);
       }
     },
   },
