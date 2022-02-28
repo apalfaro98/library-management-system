@@ -1,13 +1,16 @@
+import { required } from 'vuelidate/lib/validators';
 <template>
   <div class="fondo">
-    <v-row>
-      <v-col class="col-12 col-sm-6 col-md-5">
-        <v-form class="grey lighten-5 pa-14 form">
+    <v-row class="mb-0">
+      <v-col class="col-12 col-sm-6 col-md-5 pb-0">
+        <v-form class="grey lighten-5 pa-14 form" @submit.prevent="login">
           <h1 class="mb-5">Biblioteca MFC</h1>
+          <v-alert v-if="error" dense outlined type="error" class="mb-6">
+            {{ errorMessage }}
+          </v-alert>
           <v-text-field
-            v-model="name"
-            :rules="[rules.required, rules.max]"
-            :counter="10"
+            v-model="user"
+            :rules="[rules.required]"
             label="  Nombre de Usuario"
             required
             outlined
@@ -16,25 +19,32 @@
           ></v-text-field>
           <v-text-field
             v-model="password"
-            :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
+            :append-icon="show ? 'mdi-eye' : 'mdi-eye-off'"
             :rules="[rules.required, rules.min]"
-            :type="show1 ? 'text' : 'password'"
+            :type="show ? 'text' : 'password'"
             prepend-inner-icon="mdi-lock"
             label="Contraseña"
             hint="Al menos 8 caracteres"
+            required
             counter
             outlined
-            @click:append="show1 = !show1"
+            @click:append="show = !show"
           ></v-text-field>
 
-          <v-btn class="mr-4 px-10 py-3" @click="submit" color="primary" large>
+          <v-btn class="mr-4 px-10 py-3" color="primary" large type="submit">
             Entrar
           </v-btn>
         </v-form>
       </v-col>
-      <v-col class="d-flex justify-center align-center">
+      <v-col class="d-flex justify-center align-center pb-0">
         <div class="d-flex flex-column">
-          <v-btn class="mb-2 d-block" color="success" large elevation="15">
+          <v-btn
+            class="mb-2 d-block"
+            color="success"
+            large
+            elevation="15"
+            @click="irRegistro()"
+          >
             Registrarse
           </v-btn>
           <v-btn
@@ -42,6 +52,7 @@
             color="teal"
             large
             elevation="15"
+            @click="irBusqueda()"
           >
             Buscar Libros
           </v-btn>
@@ -52,32 +63,52 @@
 </template>
 
 <script>
-// import { validationMixin } from "vuelidate";
-// import { required, maxLength, email } from "vuelidate/lib/validators";
-
+import peticiones from "@/helpers/peticiones";
 export default {
-  //   mixins: [validationMixin],
-  //   validations: {
-  //     name: { required, maxLength: maxLength(10) },
-  //   },
   name: "LoginView",
   data() {
     return {
-      name: "",
-      show1: false,
+      user: "",
       password: "",
+      show: false,
+      error: false,
+      errorMessage: "",
       rules: {
         required: (value) => !!value || "Requerido.",
         min: (v) => v.length >= 8 || "Se necesita un minimo de 8 caracteres.",
-        max: (v) =>
-          v.length <= 10 ||
-          "El nombre de usuario no puede exceder los 10 caracteres.",
       },
     };
   },
   methods: {
-    submit() {
-      this.$v.$touch();
+    irRegistro() {
+      this.$router.push("/registro");
+    },
+    irBusqueda() {
+      this.$router.push("/busqueda");
+    },
+    login() {
+      if (this.user.length == 0 || this.password.length == 0) {
+        this.error = true;
+        this.errorMessage =
+          "El usuario y la contraseña son campos obligatorios";
+      } else if (this.password.length < 8) {
+        this.error = true;
+        this.errorMessage =
+          "La contraseña debe tener un mínimo de 8 caracteres";
+      } else {
+        this.error = false;
+        peticiones.auth(this.user, this.password).then((resp) => {
+          if (resp.ok) {
+            console.log(resp);
+            sessionStorage.setItem("logueado", "ok");
+            this.$router.push("/home");
+          } else {
+            this.error = true;
+            this.errorMessage =
+              "Usuario o contraseña incorrectos, vuelva a intentarlo";
+          }
+        });
+      }
     },
   },
 };
