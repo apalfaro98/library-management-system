@@ -18,6 +18,7 @@ const routes = [
     path: "/home",
     name: "home",
     component: HomeView,
+    meta: { requiresAuth: true },
   },
   {
     path: "/registro",
@@ -36,5 +37,11 @@ const router = new VueRouter({
   base: process.env.BASE_URL,
   routes,
 });
+
+// router.beforeEach((to, from, next) => {
+//   if (sessionStorage.getItem("logueado") === "ok") {
+//     next("/home");
+//   }
+// });
 
 export default router;

@@ -3,7 +3,7 @@
     <v-app-bar class="bar" elevation="7">
       <div class="bar-content d-flex justify-space-between align-center">
         <h2>MFC</h2>
-        <span class="boton d-flex align-center">
+        <span class="boton d-flex align-center" @click="salir()">
           <v-avatar color="red">
             <span class="white--text text-h6">Ca</span>
           </v-avatar>
@@ -16,6 +16,18 @@
     <h1>Hola</h1>
   </v-app>
 </template>
+
+<script>
+export default {
+  name: "HomeView",
+  methods: {
+    salir() {
+      sessionStorage.removeItem("logueado");
+      this.$emit("ruta");
+    },
+  },
+};
+</script>
 
 <style scoped>
 .bar {

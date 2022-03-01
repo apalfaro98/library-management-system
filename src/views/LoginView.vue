@@ -63,7 +63,7 @@ import { required } from 'vuelidate/lib/validators';
 </template>
 
 <script>
-import peticiones from "@/helpers/peticiones";
+// import peticiones from "@/helpers/peticiones";
 export default {
   name: "LoginView",
   data() {
@@ -97,20 +97,22 @@ export default {
           "La contraseña debe tener un mínimo de 8 caracteres";
       } else {
         this.error = false;
-        peticiones
-          .auth(this.user, this.password)
-          .then((resp) => {
-            console.log(resp);
-            if (resp.ok) {
-              sessionStorage.setItem("logueado", "ok");
-              this.$router.push("/home");
-            } else {
-              this.error = true;
-              this.errorMessage =
-                "Usuario o contraseña incorrectos, vuelva a intentarlo";
-            }
-          })
-          .catch(console.log);
+        sessionStorage.setItem("logueado", "ok");
+        this.$emit("ruta");
+        // peticiones
+        //   .auth(this.user, this.password)
+        //   .then((resp) => {
+        //     console.log(resp);
+        //     if (resp.ok) {
+        //       sessionStorage.setItem("logueado", "ok");
+        //       this.$router.push("/home");
+        //     } else {
+        //       this.error = true;
+        //       this.errorMessage =
+        //         "Usuario o contraseña incorrectos, vuelva a intentarlo";
+        //     }
+        //   })
+        //   .catch(console.log);
       }
     },
   },

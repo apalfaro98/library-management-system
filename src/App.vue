@@ -1,5 +1,5 @@
 <template>
-  <v-app>
+  <v-app @ruta="checkLogin()">
     <router-view />
   </v-app>
 </template>
