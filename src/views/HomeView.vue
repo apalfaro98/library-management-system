@@ -23,7 +23,7 @@ export default {
   methods: {
     salir() {
       sessionStorage.removeItem("logueado");
-      this.$emit("ruta");
+      this.$router.push("/");
     },
   },
 };

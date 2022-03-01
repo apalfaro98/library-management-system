@@ -39,8 +39,14 @@ const router = new VueRouter({
 });
 
 // router.beforeEach((to, from, next) => {
-//   if (sessionStorage.getItem("logueado") === "ok") {
-//     next("/home");
+//   if (to.matched.some((route) => route.meta.requiresAuth)) {
+//     if (!store.state.isLogued) {
+//       return false;
+//     } else {
+//       next();
+//     }
+//   } else {
+//     next();
 //   }
 // });
 

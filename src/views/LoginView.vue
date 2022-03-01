@@ -98,7 +98,7 @@ export default {
       } else {
         this.error = false;
         sessionStorage.setItem("logueado", "ok");
-        this.$emit("ruta");
+        this.$router.push("/home");
         // peticiones
         //   .auth(this.user, this.password)
         //   .then((resp) => {
