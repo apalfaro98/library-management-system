@@ -21,6 +21,7 @@
             required
             outlined
             placeholder="Entre su nombre"
+            @focus="quitarError"
           ></v-text-field>
         </v-col>
         <v-col>
@@ -31,6 +32,7 @@
             required
             outlined
             placeholder="Entre sus apellidos"
+            @focus="quitarError"
           ></v-text-field>
         </v-col>
       </v-row>
@@ -44,6 +46,7 @@
             required
             outlined
             placeholder="Entre su número de carnet de identidad"
+            @focus="quitarError"
           ></v-text-field>
         </v-col>
         <v-col>
@@ -54,6 +57,7 @@
             required
             outlined
             placeholder="Entre su correo electrónico"
+            @focus="quitarError"
           ></v-text-field>
         </v-col>
       </v-row>
@@ -66,6 +70,7 @@
             label="Carrera"
             outlined
             required
+            @focus="quitarError"
           ></v-select>
         </v-col>
         <v-col>
@@ -76,6 +81,7 @@
             label="Año"
             outlined
             required
+            @focus="quitarError"
           ></v-select>
         </v-col>
       </v-row>
@@ -154,8 +160,11 @@ export default {
         this.email = "";
         this.carrera = "";
         this.anio = "";
-        setTimeout(() => (this.success = false), 3000);
       }
+    },
+    quitarError() {
+      this.error = false;
+      this.success = false;
     },
   },
   computed: {
