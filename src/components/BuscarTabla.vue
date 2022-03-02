@@ -3,7 +3,8 @@
     <div class="d-flex justify-center">
       <div class="mt-15">
         <p v-if="texto" class="font-weight-bold pl-2">
-          Introduzca el título del libro:
+          Introduzca <span v-if="libro">el título del libro</span
+          ><span v-else>el correo del estudiante</span> :
         </p>
         <v-text-field
           class="input flex-grow-0"
@@ -36,6 +37,10 @@ export default {
     texto: {
       type: Boolean,
       default: false,
+    },
+    libro: {
+      type: Boolean,
+      default: true,
     },
   },
   data() {

@@ -26,13 +26,13 @@ import BuscarLibro from '@/components/BuscarLibro.vue';
         v-if="mostrar == 0"
         class="subir"
         :texto="true"
-        :search="libro"
+        :libro="true"
       />
       <buscar-tabla
         v-else-if="mostrar == 1"
         class="subir"
         :texto="true"
-        :search="estudiante"
+        :libro="false"
       />
       <revizar-prestamo v-else-if="mostrar == 2" />
     </div>
