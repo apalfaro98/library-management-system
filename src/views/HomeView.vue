@@ -37,8 +37,7 @@
       <libros-tab v-else-if="selectedItem == 1" />
       <estudiantes-tab v-else-if="selectedItem == 2" />
       <agregar-libros v-else-if="selectedItem == 3" />
-      <prestamos-retornos-tab v-else-if="selectedItem == 4" />
-      <todos-prestamos-tab v-else />
+      <prestamos-retornos-tab v-else />
     </div>
   </v-app>
 </template>
@@ -49,7 +48,6 @@ import LibrosTab from "@/components/LibrosTab.vue";
 import EstudiantesTab from "@/components/EstudiantesTab.vue";
 import AgregarLibros from "@/components/AgregarLibrosTab.vue";
 import PrestamosRetornosTab from "@/components/PrestamosRetornosTab.vue";
-import TodosPrestamosTab from "@/components/TodosPrestamosTab.vue";
 export default {
   name: "HomeView",
   components: {
@@ -58,7 +56,6 @@ export default {
     EstudiantesTab,
     AgregarLibros,
     PrestamosRetornosTab,
-    TodosPrestamosTab,
   },
   data() {
     return {
@@ -69,7 +66,6 @@ export default {
         { text: "Estudiantes", icon: "mdi-account-group" },
         { text: "Agregar Libros", icon: "mdi-book-plus-multiple" },
         { text: "Préstamos y Retornos", icon: "mdi-book-account" },
-        { text: "Todos los préstamos", icon: "mdi-account-clock" },
       ],
     };
   },
