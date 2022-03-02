@@ -125,7 +125,7 @@ export default {
         num: () =>
           this.isNumber || "Solo se pueden introducir caracteres numéricos",
         emailEval: () =>
-          this.isEmail || "Esta no es una direcci'on de correo válida",
+          this.isEmail || "Esta no es una dirección de correo válida",
       },
     };
   },
