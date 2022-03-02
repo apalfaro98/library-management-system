@@ -2,7 +2,10 @@
   <v-app>
     <v-app-bar class="bar" elevation="1" color="white">
       <div class="bar-content d-flex justify-end">
-        <span class="boton d-flex align-center" @click="salir()">
+        <span
+          class="boton d-flex align-center pl-4 rounded-xl"
+          @click="salir()"
+        >
           <v-avatar color="accent" size="40">
             <v-icon dark> mdi-account-circle </v-icon>
           </v-avatar>
@@ -89,12 +92,13 @@ export default {
 }
 .boton:hover {
   cursor: pointer;
+  background-color: #e3f2fd;
 }
 .menu {
   position: absolute;
   left: 0;
   top: 0;
-  height: 83vh;
+  height: 84vh;
 }
 .contenido {
   background-color: #fafafa;

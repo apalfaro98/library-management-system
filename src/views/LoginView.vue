@@ -20,11 +20,10 @@ import { required } from 'vuelidate/lib/validators';
           <v-text-field
             v-model="password"
             :append-icon="show ? 'mdi-eye' : 'mdi-eye-off'"
-            :rules="[rules.required, rules.min]"
+            :rules="[rules.required]"
             :type="show ? 'text' : 'password'"
             prepend-inner-icon="mdi-lock"
             label="Contraseña"
-            hint="Al menos 8 caracteres"
             required
             counter
             outlined
@@ -75,7 +74,6 @@ export default {
       errorMessage: "",
       rules: {
         required: (value) => !!value || "Requerido.",
-        min: (v) => v.length >= 8 || "Se necesita un minimo de 8 caracteres.",
       },
     };
   },
@@ -91,10 +89,6 @@ export default {
         this.error = true;
         this.errorMessage =
           "El usuario y la contraseña son campos obligatorios";
-      } else if (this.password.length < 8) {
-        this.error = true;
-        this.errorMessage =
-          "La contraseña debe tener un mínimo de 8 caracteres";
       } else {
         this.error = false;
         sessionStorage.setItem("logueado", "ok");
