@@ -26,25 +26,29 @@ import BuscarLibro from '@/components/BuscarLibro.vue';
         v-if="mostrar == 0"
         class="subir"
         :texto="true"
-        :libro="true"
+        :tab="'libro'"
       />
       <buscar-tabla
         v-else-if="mostrar == 1"
         class="subir"
         :texto="true"
-        :libro="false"
+        :tab="'estudiante'"
       />
-      <revizar-prestamo v-else-if="mostrar == 2" />
+      <buscar-tabla
+        v-else-if="mostrar == 2"
+        class="subir"
+        :texto="true"
+        :tab="'prestamo'"
+      />
     </div>
   </div>
 </template>
 
 <script>
 import BuscarTabla from "@/components/BuscarTabla.vue";
-import RevizarPrestamo from "@/components/RevizarPrestamo.vue";
 export default {
   name: "PrincipalTab",
-  components: { BuscarTabla, RevizarPrestamo },
+  components: { BuscarTabla },
   data() {
     return {
       mostrar: null,

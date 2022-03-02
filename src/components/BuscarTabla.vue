@@ -3,8 +3,13 @@
     <div class="d-flex justify-center">
       <div class="mt-15">
         <p v-if="texto" class="font-weight-bold pl-2">
-          Introduzca <span v-if="libro">el título del libro</span
-          ><span v-else>el correo del estudiante</span> :
+          Introduzca <span v-if="tab == 'libro'">el título del libro</span
+          ><span v-else-if="tab == 'estudiante'">el nombre del estudiante</span
+          ><span v-else-if="tab == 'prestamo'"
+            >el correo del estudiante para verificar los libros que posee el
+            mismo</span
+          >
+          :
         </p>
         <v-text-field
           class="input flex-grow-0"
@@ -38,9 +43,8 @@ export default {
       type: Boolean,
       default: false,
     },
-    libro: {
-      type: Boolean,
-      default: true,
+    tab: {
+      type: String,
     },
   },
   data() {
