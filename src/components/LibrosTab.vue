@@ -3,7 +3,7 @@
     <div class="d-flex align-center justify-start">
       <v-select
         v-model="categoria"
-        class="select mt-4 ml-7"
+        class="select mt-7 ml-7"
         :items="categorias"
         label="Categorías"
         append-icon="mdi-filter-menu"
@@ -16,11 +16,11 @@
       <v-data-table
         :headers="headers"
         :items="books"
-        :items-per-page="5"
+        :items-per-page="6"
         :footer-props="{
-          'items-per-page-options': [5],
+          'items-per-page-options': [6],
         }"
-        class="elevation-1 tabla"
+        class="elevation-3 tabla"
       ></v-data-table>
     </div>
   </div>
@@ -50,7 +50,7 @@ export default {
         { text: "Título", align: "start", value: "titulo" },
         { text: "Autor", align: "start", value: "autor" },
         { text: "Categoría", align: "start", value: "categoria" },
-        { text: "Disponibles", align: "start", value: "disponible" },
+        { text: "Disponible", align: "start", value: "disponible" },
         { text: "Total", align: "start", value: "cantidad" },
       ],
     };
@@ -83,6 +83,6 @@ export default {
   max-width: 150px;
 }
 .tabla {
-  width: 800px;
+  width: 1000px;
 }
 </style>

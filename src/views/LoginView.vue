@@ -36,7 +36,12 @@ import { required } from 'vuelidate/lib/validators';
             @focus="quitarError()"
           ></v-text-field>
 
-          <v-btn class="mr-4 px-10 py-3" color="primary" large type="submit">
+          <v-btn
+            class="mr-4 px-10 py-3 font-weight-bold"
+            color="primary"
+            large
+            type="submit"
+          >
             Entrar
           </v-btn>
         </v-form>
@@ -44,7 +49,7 @@ import { required } from 'vuelidate/lib/validators';
       <v-col class="d-flex justify-center align-center pb-0">
         <div class="d-flex flex-column">
           <v-btn
-            class="mb-2 d-block"
+            class="mb-2 d-block font-weight-bold"
             color="success"
             large
             elevation="15"
@@ -53,7 +58,7 @@ import { required } from 'vuelidate/lib/validators';
             Registrarse
           </v-btn>
           <v-btn
-            class="mt-4 d-block white--text"
+            class="mt-4 d-block white--text font-weight-bold"
             color="teal"
             large
             elevation="15"

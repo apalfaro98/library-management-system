@@ -94,10 +94,10 @@ export default {
   position: absolute;
   left: 0;
   top: 0;
-  height: 84vh;
+  height: 83vh;
 }
 .contenido {
-  background-color: #fafafa;
+  background-color: #f5f5f5;
   height: 100%;
   padding-left: 300px;
 }

@@ -1,6 +1,6 @@
 <template>
   <div class="fondo">
-    <buscar-tabla />
+    <buscar-tabla :tab="'libro'" />
   </div>
 </template>
 

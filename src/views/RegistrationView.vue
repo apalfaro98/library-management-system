@@ -86,7 +86,12 @@
         </v-col>
       </v-row>
       <div class="text-center mt-2">
-        <v-btn class="px-15 py-6" color="primary" large type="submit">
+        <v-btn
+          class="px-15 py-6 font-weight-bold"
+          color="primary"
+          large
+          type="submit"
+        >
           Registrarse
         </v-btn>
       </div>

@@ -7,6 +7,7 @@ import BuscarLibro from '@/components/BuscarLibro.vue';
         :key="i"
         width="260"
         height="150"
+        elevation="4"
         class="text-center pt-4 rounded-xl card"
         @click="accion(i)"
       >
@@ -16,12 +17,21 @@ import BuscarLibro from '@/components/BuscarLibro.vue';
         }}</v-card-text>
       </v-card>
     </div>
-    <div class="ml-10 pt-6">
-      <v-btn v-if="back == true" color="default" fab small @click="atras()">
-        <v-icon class="boton" color="blue accent-3"
-          >mdi-arrow-left-thick</v-icon
+    <div class="pt-6">
+      <div class="pl-10">
+        <v-btn
+          v-if="back == true"
+          color="grey lighten-5"
+          elevation="3"
+          fab
+          small
+          @click="atras()"
         >
-      </v-btn>
+          <v-icon class="boton" color="blue accent-3"
+            >mdi-arrow-left-thick</v-icon
+          >
+        </v-btn>
+      </div>
       <buscar-tabla
         v-if="mostrar == 0"
         class="subir"
