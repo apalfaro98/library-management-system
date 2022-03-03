@@ -3,7 +3,11 @@ import { required } from 'vuelidate/lib/validators';
   <div class="fondo">
     <v-row class="mb-0">
       <v-col class="col-12 col-sm-6 col-md-5 pb-0">
-        <v-form class="grey lighten-5 pa-14 form" @submit.prevent="login">
+        <v-form
+          class="grey lighten-5 pa-14 form"
+          @submit.prevent="login"
+          ref="form"
+        >
           <h1 class="mb-5">Biblioteca MFC</h1>
           <v-alert v-if="error" dense outlined type="error" class="mb-6">
             {{ errorMessage }}
@@ -16,6 +20,7 @@ import { required } from 'vuelidate/lib/validators';
             outlined
             prepend-inner-icon="mdi-account"
             placeholder="Tu nombre de usuario"
+            @focus="quitarError()"
           ></v-text-field>
           <v-text-field
             v-model="password"
@@ -28,6 +33,7 @@ import { required } from 'vuelidate/lib/validators';
             counter
             outlined
             @click:append="show = !show"
+            @focus="quitarError()"
           ></v-text-field>
 
           <v-btn class="mr-4 px-10 py-3" color="primary" large type="submit">
@@ -62,7 +68,7 @@ import { required } from 'vuelidate/lib/validators';
 </template>
 
 <script>
-// import peticiones from "@/helpers/peticiones";
+import peticiones from "@/helpers/peticiones";
 export default {
   name: "LoginView",
   data() {
@@ -90,24 +96,40 @@ export default {
         this.errorMessage =
           "El usuario y la contraseña son campos obligatorios";
       } else {
-        this.error = false;
-        sessionStorage.setItem("logueado", "ok");
-        this.$router.push("/home");
-        // peticiones
-        //   .auth(this.user, this.password)
-        //   .then((resp) => {
-        //     console.log(resp);
-        //     if (resp.ok) {
-        //       sessionStorage.setItem("logueado", "ok");
-        //       this.$router.push("/home");
-        //     } else {
-        //       this.error = true;
-        //       this.errorMessage =
-        //         "Usuario o contraseña incorrectos, vuelva a intentarlo";
-        //     }
-        //   })
-        //   .catch(console.log);
+        peticiones
+          .auth(this.user, this.password)
+          .then((resp) => resp.json())
+          .then((data) => {
+            if (data.ok) {
+              this.error = false;
+              this.$refs.form.reset();
+              this.user = "";
+              this.password = "";
+              sessionStorage.setItem("logueado", "ok");
+              this.$router.push("/home");
+            } else {
+              this.error = true;
+              this.errorMessage =
+                "Usuario o contraseña incorrecto, vuelva a intentarlo.";
+            }
+          })
+          .catch(() => {
+            this.error = true;
+            this.errorMessage =
+              "No se ha podido establecer la conexión con el servidor.";
+          });
+        // if (resp.ok) {
+        //   sessionStorage.setItem("logueado", "ok");
+        //   this.$router.push("/home");
+        // } else {
+        //   this.error = true;
+        //   this.errorMessage =
+        //     "Usuario o contraseña incorrectos, vuelva a intentarlo";
+        // }
       }
+    },
+    quitarError() {
+      this.error = false;
     },
   },
 };

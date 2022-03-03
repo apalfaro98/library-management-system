@@ -13,4 +13,21 @@ const auth = (usuario, contrasena) => {
   });
 };
 
-export default { auth };
+const registro = (nombre, apellido, carnet, email, carrera, anio) => {
+  return fetch(`${url}api/student/login`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      nombre,
+      apellido,
+      carnet,
+      email,
+      carrera,
+      anio,
+    }),
+  });
+};
+
+export default { auth, registro };

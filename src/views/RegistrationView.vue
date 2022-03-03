@@ -95,6 +95,7 @@
 </template>
 
 <script>
+import peticiones from "@/helpers/peticiones.js";
 export default {
   name: "LoginView",
   data() {
@@ -151,15 +152,38 @@ export default {
         this.errorMessage = "Esta no es una dirección de correo válida";
       } else {
         //Un post al servidor
-        this.success = true;
-        this.error = false;
-        this.$refs.form.reset();
-        this.nombre = "";
-        this.apellidos = "";
-        this.ci = "";
-        this.email = "";
-        this.carrera = "";
-        this.anio = "";
+        peticiones
+          .registro(
+            this.nombre,
+            this.apellidos,
+            this.ci,
+            this.email,
+            this.carrera,
+            this.anio
+          )
+          .then((resp) => resp.json())
+          .then((data) => {
+            if (data.ok) {
+              this.success = true;
+              this.error = false;
+              this.$refs.form.reset();
+              this.nombre = "";
+              this.apellidos = "";
+              this.ci = "";
+              this.email = "";
+              this.carrera = "";
+              this.anio = "";
+            } else {
+              this.error = true;
+              this.errorMessage =
+                "Ya existe un estudiante con ese correo o carnet";
+            }
+          })
+          .catch(() => {
+            this.error = true;
+            this.errorMessage =
+              "No se ha podido realizar la conexión con el servidor.";
+          });
       }
     },
     quitarError() {
