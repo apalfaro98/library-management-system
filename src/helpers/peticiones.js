@@ -46,5 +46,8 @@ const addBook = (titulo, autor, categoria, cantidad) => {
 const showBooks = () => {
   return fetch(`${url}api/admin/show-books`);
 };
+const showStudents = () => {
+  return fetch(`${url}api/admin/show-student`);
+};
 
-export default { auth, registro, addBook, showBooks };
+export default { auth, registro, addBook, showBooks, showStudents };
