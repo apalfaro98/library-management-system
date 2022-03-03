@@ -43,5 +43,8 @@ const addBook = (titulo, autor, categoria, cantidad) => {
     }),
   });
 };
+const showBooks = () => {
+  return fetch(`${url}api/admin/show-books`);
+};
 
-export default { auth, registro, addBook };
+export default { auth, registro, addBook, showBooks };
