@@ -100,6 +100,7 @@
 </template>
 
 <script>
+import peticiones from "@/helpers/peticiones.js";
 export default {
   name: "AgregarLibrosTab",
   data() {
@@ -112,11 +113,11 @@ export default {
       errorMessage: "",
       success: false,
       categorias: [
-        "Matemática",
-        "Física",
+        "Matematica",
+        "Fisica",
         "Ciencias Sociales",
         "Historia",
-        "Ingeniería",
+        "Ingenieria",
       ],
       rules: {
         required: (value) => !!value || "Requerido.",
@@ -133,13 +134,25 @@ export default {
         this.errorMessage = "La cantidad de libros debe ser mayor que 0.";
       } else {
         //POST al servidor
-        this.success = true;
-        this.error = false;
-        this.$refs.form.reset();
-        this.titulo = "";
-        this.autor = "";
-        this.categoria = "";
-        this.cantidad = "";
+        peticiones
+          .addBook(this.titulo, this.autor, this.categoria, this.cantidad)
+          .then((res) => res.json())
+          .then((data) => {
+            if (data.ok) {
+              this.success = true;
+              this.error = false;
+              this.$refs.form.reset();
+              this.titulo = "";
+              this.autor = "";
+              this.categoria = "";
+              this.cantidad = "";
+            }
+          })
+          .catch(() => {
+            this.error = true;
+            this.errorMessage =
+              "No se ha podido realizar la conexión con el servidor.";
+          });
       }
     },
     quitarError() {

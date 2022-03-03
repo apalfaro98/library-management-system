@@ -29,5 +29,19 @@ const registro = (nombre, apellido, carnet, email, carrera, anio) => {
     }),
   });
 };
+const addBook = (titulo, autor, categoria, cantidad) => {
+  return fetch(`${url}api/admin/add-book`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      titulo,
+      autor,
+      categoria,
+      cantidad,
+    }),
+  });
+};
 
-export default { auth, registro };
+export default { auth, registro, addBook };

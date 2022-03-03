@@ -27,11 +27,11 @@ export default {
   data() {
     return {
       categorias: [
-        "Matemática",
-        "Física",
+        "Matematica",
+        "Fisica",
         "Ciencias Sociales",
         "Historia",
-        "Ingeniería",
+        "Ingenieria",
       ],
       headers: [
         {
