@@ -8,7 +8,11 @@ import { required } from 'vuelidate/lib/validators';
           @submit.prevent="login"
           ref="form"
         >
-          <h1 class="mb-5">Biblioteca MFC</h1>
+          <div class="d-flex align-center mb-5">
+            <img src="@/assets/book.svg" alt="libro" width="60px" />
+            <h1 class="ml-3">Biblioteca MFC</h1>
+          </div>
+
           <v-alert v-if="error" dense outlined type="error" class="mb-6">
             {{ errorMessage }}
           </v-alert>
@@ -111,7 +115,7 @@ export default {
               this.user = "";
               this.password = "";
               sessionStorage.setItem("logueado", "ok");
-              this.$router.push("/home");
+              this.$router.push("/");
             } else {
               this.error = true;
               this.errorMessage =
@@ -123,14 +127,6 @@ export default {
             this.errorMessage =
               "No se ha podido establecer la conexión con el servidor.";
           });
-        // if (resp.ok) {
-        //   sessionStorage.setItem("logueado", "ok");
-        //   this.$router.push("/home");
-        // } else {
-        //   this.error = true;
-        //   this.errorMessage =
-        //     "Usuario o contraseña incorrectos, vuelva a intentarlo";
-        // }
       }
     },
     quitarError() {

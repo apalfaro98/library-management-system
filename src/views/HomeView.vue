@@ -16,7 +16,7 @@
       </div>
     </v-app-bar>
     <v-card width="300" tile class="menu" elevation="1">
-      <h2 class="pt-4 pb-10 text-center">Biblioteca</h2>
+      <h2 class="pt-5 pb-10 text-center">Biblioteca</h2>
       <v-navigation-drawer permanent width="300">
         <v-list nav>
           <v-list-item-group v-model="selectedItem" color="primary">
@@ -72,7 +72,7 @@ export default {
   methods: {
     salir() {
       sessionStorage.removeItem("logueado");
-      this.$router.push("/");
+      this.$router.push("/login");
     },
   },
 };

@@ -5,17 +5,18 @@ import HomeView from "@/views/HomeView";
 import LoginView from "@/views/LoginView";
 import RegistrationView from "@/views/RegistrationView";
 import SearchView from "@/views/SearchView";
+import ErrorView from "@/views/ErrorView";
 
 Vue.use(VueRouter);
 
 const routes = [
   {
-    path: "/",
+    path: "/login",
     name: "login",
     component: LoginView,
   },
   {
-    path: "/home",
+    path: "/",
     name: "home",
     component: HomeView,
     meta: { requiresAuth: true },
@@ -30,6 +31,11 @@ const routes = [
     name: "busqueda",
     component: SearchView,
   },
+  {
+    path: "*",
+    name: "error",
+    component: ErrorView,
+  },
 ];
 
 const router = new VueRouter({
@@ -38,16 +44,24 @@ const router = new VueRouter({
   routes,
 });
 
-// router.beforeEach((to, from, next) => {
-//   if (to.matched.some((route) => route.meta.requiresAuth)) {
-//     if (!store.state.isLogued) {
-//       return false;
-//     } else {
-//       next();
-//     }
-//   } else {
-//     next();
-//   }
-// });
+const isAuthenticated = () => {
+  return sessionStorage.getItem("logueado");
+};
+
+router.beforeEach((to, from, next) => {
+  if (to.meta.requiresAuth && !isAuthenticated()) {
+    return next("/login");
+  }
+  if (from.meta.requiresAuth && isAuthenticated()) {
+    return next("/");
+  }
+  return next();
+});
+
+router.afterEach((to) => {
+  if (!to.meta.requiresAuth && isAuthenticated()) {
+    sessionStorage.removeItem("logueado");
+  }
+});
 
 export default router;
