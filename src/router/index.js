@@ -32,7 +32,7 @@ const routes = [
     component: SearchView,
   },
   {
-    path: "*",
+    path: "/:pathMatch(.*)*",
     name: "error",
     component: ErrorView,
   },
