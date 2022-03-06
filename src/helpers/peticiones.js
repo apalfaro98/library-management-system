@@ -43,6 +43,30 @@ const addBook = (titulo, autor, categoria, cantidad) => {
     }),
   });
 };
+const prestarLibro = (titulo, email) => {
+  return fetch(`${url}api/admin/prestamo`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      titulo,
+      email,
+    }),
+  });
+};
+const devolverLibro = (titulo, email) => {
+  return fetch(`${url}api/admin/return-book`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      titulo,
+      email,
+    }),
+  });
+};
 const showBooks = () => {
   return fetch(`${url}api/admin/show-books`);
 };
@@ -50,4 +74,12 @@ const showStudents = () => {
   return fetch(`${url}api/admin/show-student`);
 };
 
-export default { auth, registro, addBook, showBooks, showStudents };
+export default {
+  auth,
+  registro,
+  addBook,
+  showBooks,
+  showStudents,
+  prestarLibro,
+  devolverLibro,
+};

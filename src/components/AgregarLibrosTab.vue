@@ -32,7 +32,6 @@
               <label class="font-weight-bold">Título:</label>
               <v-text-field
                 v-model="titulo"
-                label="Escriba el título del libro"
                 placeholder="Escriba el título del libro"
                 outlined
                 :rules="[rules.required]"
@@ -45,7 +44,6 @@
               <label class="font-weight-bold">Autor:</label>
               <v-text-field
                 v-model="autor"
-                label="Escriba el autor del libro"
                 placeholder="Escriba el autor del libro"
                 outlined
                 :rules="[rules.required]"
@@ -60,7 +58,7 @@
               <v-select
                 v-model="categoria"
                 :items="categorias"
-                label="Seleccione una categoría"
+                placeholder="Seleccione una categoría"
                 outlined
                 :rules="[rules.required]"
                 class="mt-2 campo"
@@ -72,7 +70,6 @@
               <label class="font-weight-bold">Cantidad:</label>
               <v-text-field
                 v-model="cantidad"
-                label="Entre la cantidad a adicionar"
                 placeholder="Entre la cantidad a adicionar"
                 outlined
                 type="number"
