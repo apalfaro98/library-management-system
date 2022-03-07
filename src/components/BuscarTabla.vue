@@ -12,6 +12,7 @@
           :
         </p>
         <v-text-field
+          v-if="tab != 'prestamo'"
           class="input flex-grow-0"
           v-model="search"
           solo
@@ -21,13 +22,25 @@
           @click:append="elegir()"
           @keypress.enter="elegir()"
         ></v-text-field>
+        <v-autocomplete
+          v-else
+          class="input flex-grow-0"
+          v-model="search"
+          solo
+          rounded
+          height="1.5rem"
+          :append-icon="fueBuscado ? 'mdi-window-close' : 'mdi-magnify'"
+          :items="correos"
+          @change="elegir()"
+          @click:append="elegir()"
+        ></v-autocomplete>
       </div>
     </div>
     <div v-if="texto" class="d-flex justify-center mt-3">
       <v-data-table
         v-if="mostrarTabla"
-        :headers="tab == 'libro' ? headersLA : headersE"
-        :items="tab == 'libro' ? books : estudiantes"
+        :headers="tab == 'estudiante' ? headersE : headersLA"
+        :items="tab == 'estudiante' ? estudiantes : books"
         :items-per-page="5"
         :footer-props="{
           'items-per-page-options': [5],
@@ -44,6 +57,7 @@
         :footer-props="{
           'items-per-page-options': [6],
         }"
+        :item-class="estiloDisponible"
         class="elevation-1 tabla"
       ></v-data-table>
     </div>
@@ -74,6 +88,8 @@ export default {
       mostrarTabla: false,
       books: [],
       estudiantes: [],
+      correos: [],
+      prestados: [],
       headersLA: [
         { text: "Título", align: "start", value: "titulo" },
         { text: "Autor", align: "start", value: "autor" },
@@ -85,7 +101,11 @@ export default {
         { text: "Título", align: "start", value: "titulo" },
         { text: "Autor", align: "start", value: "autor" },
         { text: "Categoría", align: "start", value: "categoria" },
-        { text: "Disponible", align: "center", value: "disponible" },
+        {
+          text: "Disponible",
+          align: "center",
+          value: "disponible",
+        },
       ],
       headersE: [
         { text: "Nombre", align: "start", value: "nombre" },
@@ -98,6 +118,11 @@ export default {
     };
   },
   methods: {
+    estiloDisponible(item) {
+      return item.disponible == "Disponible."
+        ? "green--text text--darken-4"
+        : "red--text";
+    },
     elegir() {
       if (!this.fueBuscado) {
         this.busqueda();
@@ -115,6 +140,8 @@ export default {
         this.buscarLibro();
       } else if (this.tab == "estudiante") {
         this.buscarEstudiante();
+      } else if (this.tab == "prestamo") {
+        this.buscarPrestamos();
       }
     },
     buscarLibro() {
@@ -142,6 +169,19 @@ export default {
         this.mostrarTabla = true;
       }
     },
+    buscarPrestamos() {
+      if (this.search.length != 0) {
+        this.prestados = this.estudiantes.find(
+          (est) => est.email == this.search
+        ).libros;
+        this.books = this.books.filter(this.filtroPrestados);
+        this.mostrarTabla = true;
+      }
+    },
+    filtroPrestados(book) {
+      if (this.prestados.includes(book.titulo)) return true;
+      return false;
+    },
     pedirLibros() {
       peticiones
         .showBooks()
@@ -156,6 +196,7 @@ export default {
         .then((resp) => resp.json())
         .then((data) => {
           this.estudiantes = data.estudiantes;
+          this.correos = data.estudiantes.map((est) => est.email);
         });
     },
   },
@@ -171,5 +212,8 @@ export default {
 }
 .tabla {
   width: 1000px;
+}
+.text-green {
+  color: green !important;
 }
 </style>
