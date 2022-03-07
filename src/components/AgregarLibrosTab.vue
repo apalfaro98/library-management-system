@@ -132,7 +132,12 @@ export default {
       } else {
         //POST al servidor
         peticiones
-          .addBook(this.titulo, this.autor, this.categoria, this.cantidad)
+          .addBook(
+            this.titulo,
+            this.autor,
+            this.categoria,
+            Number(this.cantidad)
+          )
           .then((res) => res.json())
           .then((data) => {
             if (data.ok) {
