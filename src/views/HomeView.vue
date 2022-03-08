@@ -36,7 +36,8 @@
       <principal-tab v-if="selectedItem == 0" />
       <libros-tab v-else-if="selectedItem == 1" />
       <estudiantes-tab v-else-if="selectedItem == 2" />
-      <agregar-libros v-else-if="selectedItem == 3" />
+      <agregar-libros-tab v-else-if="selectedItem == 3" />
+      <borrar-libro-tab v-else-if="selectedItem == 4" />
       <prestamos-retornos-tab v-else />
     </div>
   </v-app>
@@ -46,7 +47,8 @@
 import PrincipalTab from "@/components/PrincipalTab.vue";
 import LibrosTab from "@/components/LibrosTab.vue";
 import EstudiantesTab from "@/components/EstudiantesTab.vue";
-import AgregarLibros from "@/components/AgregarLibrosTab.vue";
+import AgregarLibrosTab from "@/components/AgregarLibrosTab.vue";
+import BorrarLibroTab from "@/components/BorrarLibroTab.vue";
 import PrestamosRetornosTab from "@/components/PrestamosRetornosTab.vue";
 export default {
   name: "HomeView",
@@ -54,7 +56,8 @@ export default {
     PrincipalTab,
     LibrosTab,
     EstudiantesTab,
-    AgregarLibros,
+    AgregarLibrosTab,
+    BorrarLibroTab,
     PrestamosRetornosTab,
   },
   data() {
@@ -65,6 +68,7 @@ export default {
         { text: "Libros", icon: "mdi-book-multiple" },
         { text: "Estudiantes", icon: "mdi-account-group" },
         { text: "Agregar Libros", icon: "mdi-book-plus-multiple" },
+        { text: "Borrar Libros", icon: "mdi-book-remove-multiple" },
         { text: "Préstamos y Retornos", icon: "mdi-book-account" },
       ],
     };
