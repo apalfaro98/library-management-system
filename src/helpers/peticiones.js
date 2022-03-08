@@ -79,6 +79,17 @@ const borrarLibro = (titulo, cantidad) => {
     }),
   });
 };
+const borrarEstudiante = (email) => {
+  return fetch(`${url}api/admin/delete-book`, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      email,
+    }),
+  });
+};
 const showBooks = () => {
   return fetch(`${url}api/admin/show-books`);
 };
@@ -95,4 +106,5 @@ export default {
   prestarLibro,
   devolverLibro,
   borrarLibro,
+  borrarEstudiante,
 };
