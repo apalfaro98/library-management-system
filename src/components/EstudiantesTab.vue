@@ -1,6 +1,29 @@
 <template>
   <div>
     <div class="d-flex align-center">
+      <v-alert
+        transition="slide-x-reverse-transition"
+        :value="error"
+        border="right"
+        prominent
+        type="error"
+        dismissible
+        width="350px"
+        class="py-8 font-weight-bold alerta"
+        >No se pudo borrar el estudiante porque posee libros prestados.</v-alert
+      >
+      <v-alert
+        transition="slide-x-reverse-transition"
+        :value="success"
+        border="right"
+        prominent
+        type="success"
+        dismissible
+        width="350px"
+        class="py-8 font-weight-bold alerta"
+      >
+        El estudiante fue eliminado correctamente de la base de datos.</v-alert
+      >
       <v-select
         v-model="carrera"
         class="select mt-7 ml-7"
@@ -60,8 +83,6 @@
             estudiante seleccionado.
           </v-card-text>
 
-          <!-- <v-divider></v-divider> -->
-
           <v-card-actions class="pt-5">
             <v-spacer></v-spacer>
             <v-btn
@@ -101,6 +122,8 @@ export default {
       filtroA: false,
       dialog: false,
       emailDelete: "",
+      error: false,
+      success: false,
       carreras: [
         "Ciencia de la Computación",
         "Ingeniería Informática",
@@ -166,6 +189,20 @@ export default {
     borrar() {
       console.log(this.emailDelete);
       this.dialog = false;
+      peticiones
+        .borrarEstudiante(this.emailDelete)
+        .then((resp) => resp.json())
+        .then((data) => {
+          console.log(data);
+          if (data.ok) {
+            this.error = false;
+            this.success = true;
+            this.pedirEstudiantes();
+          } else {
+            this.success = false;
+            this.error = true;
+          }
+        });
     },
   },
 };
@@ -177,5 +214,10 @@ export default {
 }
 .tabla {
   width: 1000px;
+}
+.alerta {
+  position: absolute;
+  right: 0;
+  top: 90px;
 }
 </style>

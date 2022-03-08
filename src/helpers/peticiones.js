@@ -80,7 +80,7 @@ const borrarLibro = (titulo, cantidad) => {
   });
 };
 const borrarEstudiante = (email) => {
-  return fetch(`${url}api/admin/delete-book`, {
+  return fetch(`${url}api/admin/delete-student`, {
     method: "DELETE",
     headers: {
       "Content-Type": "application/json",
