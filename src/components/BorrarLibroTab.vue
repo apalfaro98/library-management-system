@@ -98,30 +98,27 @@ export default {
         this.errorMessage = "La cantidad de libros debe ser mayor que 0.";
       } else {
         //POST al servidor
-        // peticiones
-        //   .addBook(
-        //     this.titulo,
-        //     this.autor,
-        //     this.categoria,
-        //     Number(this.cantidad)
-        //   )
-        //   .then((res) => res.json())
-        //   .then((data) => {
-        //     if (data.ok) {
-        this.success = true;
-        this.error = false;
-        this.$refs.form.reset();
-        this.titulo = "";
-        this.autor = "";
-        this.categoria = "";
-        this.cantidad = "";
-        //     }
-        //   })
-        //   .catch(() => {
-        //     this.error = true;
-        //     this.errorMessage =
-        //       "No se ha podido realizar la conexión con el servidor.";
-        //   });
+        peticiones
+          .borrarLibro(this.titulo, Number(this.cantidad))
+          .then((res) => res.json())
+          .then((data) => {
+            if (data.ok) {
+              this.success = true;
+              this.error = false;
+              this.$refs.form.reset();
+              this.titulo = "";
+              this.cantidad = "";
+            } else {
+              this.error = true;
+              this.errorMessage =
+                "No puede dar baja a una cantidad de libros mayor que los disponibles.";
+            }
+          })
+          .catch(() => {
+            this.error = true;
+            this.errorMessage =
+              "No se ha podido realizar la conexión con el servidor.";
+          });
       }
     },
     quitarError() {
