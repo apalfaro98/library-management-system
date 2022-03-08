@@ -26,12 +26,61 @@
       <v-data-table
         :headers="headers"
         :items="estudiantes"
+        item-key="email"
+        selectable-key="email"
         :items-per-page="6"
         :footer-props="{
           'items-per-page-options': [6],
         }"
         class="elevation-3 tabla"
-      ></v-data-table>
+      >
+        <template v-slot:item="row">
+          <tr>
+            <td>{{ row.item.nombre }}</td>
+            <td>{{ row.item.apellido }}</td>
+            <td>{{ row.item.carnet }}</td>
+            <td>{{ row.item.email }}</td>
+            <td>{{ row.item.carrera }}</td>
+            <td>{{ row.item.anio }}</td>
+            <td class="d-flex justify-start">
+              <v-icon @click="showDialog(row.item)">mdi-delete</v-icon>
+            </td>
+          </tr>
+        </template></v-data-table
+      >
+    </div>
+    <div class="text-center">
+      <v-dialog v-model="dialog" width="500">
+        <v-card class="pb-5">
+          <v-card-title class="text-h5 grey lighten-1">
+            Eliminar Estudiante
+          </v-card-title>
+          <v-card-text class="pt-8">
+            Realmente desea eliminar todos los datos pertenecientes al
+            estudiante seleccionado.
+          </v-card-text>
+
+          <!-- <v-divider></v-divider> -->
+
+          <v-card-actions class="pt-5">
+            <v-spacer></v-spacer>
+            <v-btn
+              color="error"
+              class="font-weight-bold mr-2"
+              @click="borrar()"
+            >
+              Eliminar
+            </v-btn>
+            <v-btn
+              color="normal"
+              class="font-weight-bold"
+              @click="dialog = false"
+            >
+              Cancelar
+            </v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
     </div>
   </div>
 </template>
@@ -50,6 +99,8 @@ export default {
       anio: "",
       filtroC: false,
       filtroA: false,
+      dialog: false,
+      emailDelete: "",
       carreras: [
         "Ciencia de la Computación",
         "Ingeniería Informática",
@@ -73,6 +124,7 @@ export default {
         { text: "Correo", align: "start", sortable: false, value: "email" },
         { text: "Carrera", align: "start", value: "carrera" },
         { text: "Año", align: "start", value: "anio" },
+        { text: "Borrar", align: "start" },
       ],
     };
   },
@@ -106,6 +158,14 @@ export default {
             }
           }
         });
+    },
+    showDialog(item) {
+      this.dialog = true;
+      this.emailDelete = item.email;
+    },
+    borrar() {
+      console.log(this.emailDelete);
+      this.dialog = false;
     },
   },
 };
