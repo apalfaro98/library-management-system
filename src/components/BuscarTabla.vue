@@ -17,7 +17,7 @@
           v-model="search"
           solo
           rounded
-          :append-icon="fueBuscado ? 'mdi-window-close' : 'mdi-magnify'"
+          :append-icon="'mdi-magnify'"
           height="1.5rem"
           @click:append="elegir()"
           @keypress.enter="elegir()"
@@ -29,7 +29,7 @@
           solo
           rounded
           height="1.5rem"
-          :append-icon="fueBuscado ? 'mdi-window-close' : 'mdi-magnify'"
+          :append-icon="'mdi-magnify'"
           :items="correos"
           @change="elegir()"
           @click:append="elegir()"
@@ -84,7 +84,6 @@ export default {
   data() {
     return {
       search: "",
-      fueBuscado: false,
       mostrarTabla: false,
       books: [],
       estudiantes: [],
@@ -124,24 +123,10 @@ export default {
         : "red--text";
     },
     elegir() {
-      if (!this.fueBuscado) {
-        this.busqueda();
-        this.fueBuscado = true;
-      } else {
-        this.search = "";
-        this.fueBuscado = false;
-        this.mostrarTabla = false;
-        this.pedirLibros();
+      if (this.tab == "estudiante") {
         this.pedirEstudiantes();
-      }
-    },
-    busqueda() {
-      if (this.tab == "libro") {
-        this.buscarLibro();
-      } else if (this.tab == "estudiante") {
-        this.buscarEstudiante();
-      } else if (this.tab == "prestamo") {
-        this.buscarPrestamos();
+      } else {
+        this.pedirLibros();
       }
     },
     buscarLibro() {
@@ -188,6 +173,11 @@ export default {
         .then((resp) => resp.json())
         .then((data) => {
           this.books = data.books;
+          if (this.tab == "libro") {
+            this.buscarLibro();
+          } else if (this.tab == "prestamo") {
+            this.buscarPrestamos();
+          }
         });
     },
     pedirEstudiantes() {
@@ -197,6 +187,7 @@ export default {
         .then((data) => {
           this.estudiantes = data.estudiantes;
           this.correos = data.estudiantes.map((est) => est.email);
+          this.buscarEstudiante();
         });
     },
   },
